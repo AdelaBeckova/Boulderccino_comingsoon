@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.bgimg {
+  background-image: url('Boulderccino-anim.gif');
+  height: 100%;
+  background-position: left 50% top 30%;
+  background-size: 20%;
+  background-repeat: no-repeat;
+  position: relative;
+  color: black;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
+}
+
+.topleft {
+  position: absolute;
+  top: 0;
+  left: 16px;
+}
+
+.bottomleft {
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+}
+
+.middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.middle_down{
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.middle_up{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.container{
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
+  background-color: #f1f1f1;
+}
+
+form input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: #006d3b;
+  color: white;
+  border: none;
+}
+
+form button:hover {
+  opacity: 0.8;
+}
+
+
+hr {
+  margin: auto;
+  width: 40%;
+}
+
+span{
+   display: block;
+   position: absolute;
+   top: 95%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   text-align: center;
+   color: #006d3b;
+}
+
+</style>
+<head>
+
+<title>
+        Boulderccino - Již brzy/Coming soon
+    </title>
+
+<link rel="icon" href="logo_small.png" 
+          type="image/x-icon">
+</head>
+<body>
+
+<div class="bgimg">
+  <div class="middle">
+    <h1>JIŽ BRZY/COMING SOON</h1>
+  </div>
+  <div class="middle_down">
+    <p>Chcete být první, kdo se o tom dozví? Zanechte nám svůj email.</p>
+  </div>
+<form name='submit-to-google-sheet'>
+  <div class="container">	
+    E-mail:<br>
+   <input type="email" name="E-mail" placeholder="Váš e-mail" required><br>
+   <button type="submit">Odeslat</button>
+  </div>
+</form>
+<span id="msg"></span>
+</div>
+
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycby8s5emf-rzlITGkzFiI8cMfMQxClXAusUylspF1eCqVCk1SaM_hrRuxhjn5sP6yQdK/exec'
+  const form = document.forms['submit-to-google-sheet']
+  const msg = document.getElementById("msg")
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => {
+         msg.innerHTML = "Děkujeme, ozveme se Vám!"
+         setTimeout(function(){msg.innerHTML = ""
+         },5000)
+         form.reset()
+})
+      .catch(error => console.error('Error!', error.message))
+  })
+</script>
+</body>
+</html>
